@@ -2,159 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crypto Security Hub</title>
-  <!-- Futuristic Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Futuristic Seed Generator</title>
   <style>
-    /* Global Styles */
+    /* Overall Page Styling */
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #0a0a0a, #020202);
-      font-family: 'Orbitron', sans-serif;
-      color: #00e0ff;
-      line-height: 1.6;
+      background: #ffffff; /* white background */
+      font-family: sans-serif;
+      color: #000000; /* black text */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
-    header {
+
+    /* Simple Title */
+    h1 {
+      margin-top: 40px;
+      font-size: 2.2em;
       text-align: center;
-      padding: 60px 20px;
-      background: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 0 20px rgba(0, 224, 255, 0.6);
     }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #00ffa3;
-      text-shadow: 0 0 10px #00ffa3;
-    }
-    header p {
-      font-size: 1.2em;
-      margin: 10px 0 0;
-      color: #00e0ff;
-    }
+
+    /* Container with minimal borders */
     .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: rgba(15, 15, 15, 0.9);
-      border: 2px solid #00e0ff;
-      box-shadow: 0 0 15px #00e0ff;
-      border-radius: 10px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 15px 30px;
+      position: relative;
       margin-top: 20px;
-      background: linear-gradient(90deg, #00e0ff, #00ffa3);
+      background: #f2f2f2;
+      padding: 30px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    /* Generate Button */
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 700;
       border: none;
       border-radius: 5px;
-      font-size: 1em;
-      font-weight: bold;
+      background: #e0e0e0;
       color: #000;
       cursor: pointer;
       text-transform: uppercase;
-      transition: background 0.3s, box-shadow 0.3s;
-      text-decoration: none;
+      margin-top: 20px;
     }
-    .btn:hover {
-      background: linear-gradient(90deg, #00ffa3, #00e0ff);
-      box-shadow: 0 0 15px #00ffa3;
+    button:hover {
+      background: #d0d0d0;
     }
-    .section {
-      margin: 40px 0;
-      padding: 20px;
-      background: rgba(15, 15, 15, 0.9);
-      border: 2px solid #00ffa3;
-      box-shadow: 0 0 15px #00ffa3;
-      border-radius: 10px;
-    }
-    .section h2 {
-      color: #00ffa3;
-      text-shadow: 0 0 5px #00ffa3;
-      margin-bottom: 10px;
-      font-size: 2em;
-    }
-    .section p {
-      color: #00e0ff;
-      margin-bottom: 15px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      background: rgba(0, 0, 0, 0.8);
-      color: #00e0ff;
-      font-size: 0.9em;
+
+    /* Labels and Textareas */
+    label {
+      font-weight: 700;
+      margin-top: 20px;
+      display: block;
     }
     textarea {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
-      border: 1px solid #00ffa3;
+      border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 14px;
-      background-color: #000;
-      color: #00e0ff;
+      background-color: #fff;
+      color: #000;
       resize: none;
-      box-shadow: inset 0 0 5px #00ffa3;
     }
-    label {
-      font-weight: bold;
-      color: #00ffa3;
+
+    /* Explanation Section */
+    #seed-explanation {
       margin-top: 20px;
-      display: block;
+      padding: 20px;
+      background: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+    }
+    #seed-explanation h2 {
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+    #seed-explanation p, #seed-explanation li {
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    #seed-explanation ol, #seed-explanation ul {
+      margin-left: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container, #seed-explanation {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <header>
-    <h1>Crypto Security Hub</h1>
-    <p>Your gateway to secure crypto seed generation</p>
-  </header>
+  <h1>Futuristic Seed Generator</h1>
 
-  <!-- Seed Generator Panel -->
-  <div class="container" id="seed-generator">
-    <button class="btn" id="generateBtn">Generate Secure Seed</button>
-    <label for="mnemonic">Mnemonic Phrase</label>
-    <textarea id="mnemonic" rows="4" readonly placeholder="Your mnemonic phrase will appear here..."></textarea>
-    <label for="walletSeed">Derived Wallet Seed (hex)</label>
+  <div class="container">
+    <button id="generateBtn">Generate Seed</button>
+    <label for="mnemonic">Mnemonic Phrase:</label>
+    <textarea id="mnemonic" rows="4" readonly placeholder="Your mnemonic will appear here..."></textarea>
+
+    <label for="walletSeed">Derived Wallet Seed (hex):</label>
     <textarea id="walletSeed" rows="2" readonly placeholder="Your wallet seed will appear here..."></textarea>
   </div>
 
-  <!-- About Section -->
-  <div class="section" id="about">
-    <h2>About Our Technology</h2>
+  <section id="seed-explanation">
+    <h2>How Your Seed Phrase Is Generated</h2>
     <p>
-      Leveraging cutting-edge cryptographic standards, our seed generator produces a unique and secure mnemonic phrase and wallet seed that form the cornerstone of crypto security.
+      Your seed phrase is created using state-of-the-art cryptographic techniques to ensure maximum security. Here’s a simplified breakdown:
     </p>
-    <p>
-      Our technology is built upon industry standards such as BIP39 and utilizes advanced algorithms to ensure that your digital assets are safeguarded by state-of-the-art security measures.
-    </p>
-  </div>
+    <ol>
+      <li><strong>High-Entropy Random Data:</strong> Secure random data (entropy) is generated—like rolling many high-quality dice.</li>
+      <li><strong>Binary Conversion:</strong> This data is converted into bits (0s and 1s), forming the basis of your seed.</li>
+      <li><strong>Checksum Creation:</strong> A checksum is computed with the SHA3‑512 hash function, detecting any errors or tampering.</li>
+      <li><strong>Word Mapping:</strong> The combined bits are split into segments that map to words from a standardized list (BIP39), creating your human-readable seed phrase.</li>
+    </ol>
 
-  <!-- How It Works Section -->
-  <div class="section" id="how-it-works">
-    <h2>How It Works</h2>
-    <p>
-      <strong>1. Entropy Generation:</strong> High-quality random data is produced as the foundation for your seed.
-    </p>
-    <p>
-      <strong>2. Data Conversion:</strong> The random data is transformed into binary format.
-    </p>
-    <p>
-      <strong>3. Checksum & Mapping:</strong> A checksum is computed and the data is segmented, mapping to words from the BIP39 list.
-    </p>
-    <p>
-      <strong>4. Wallet Seed Derivation:</strong> The mnemonic is processed using scrypt to derive a secure wallet seed.
-    </p>
-  </div>
+    <h2>Why Is It So Secure?</h2>
+    <ul>
+      <li><strong>High Entropy:</strong> The massive randomness makes it nearly impossible to guess your seed phrase.</li>
+      <li><strong>Checksum Verification:</strong> The checksum reveals any corruption or manipulation.</li>
+      <li><strong>Industry Standards:</strong> We follow BIP39 and use SHA3‑512, known for their cryptographic strength.</li>
+      <li><strong>Derived Wallet Seed:</strong> The mnemonic is processed using scrypt, making brute-force attacks extremely difficult.</li>
+    </ul>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Crypto Security Hub. All rights reserved.</p>
-  </footer>
+    <h2>What This Means for You</h2>
+    <p>
+      In essence, your seed phrase is the master key to your crypto wallet. It’s easy to record or remember, yet extraordinarily difficult for anyone else to crack, achieving a balance of convenience and cutting-edge security.
+    </p>
+  </section>
 
   <script>
     document.getElementById("generateBtn").addEventListener("click", function() {
