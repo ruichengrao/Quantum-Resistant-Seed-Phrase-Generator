@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Futuristic Seed Generator</title>
+  <!-- Sci-Fi Style Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Overall Page Styling */
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: #00e0ff; /* Neon teal text */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Glowing Title */
+    h1 {
+      margin-top: 40px;
+      font-size: 2.2em;
+      text-align: center;
+      color: #00ffa3;
+      text-shadow: 0 0 8px #00ffa3;
+    }
+
+    /* Container with neon borders */
+    .container {
+      position: relative;
+      margin-top: 20px;
+      background: #0f0f0f;
+      padding: 30px;
+      border: 2px solid #00e0ff;
+      box-shadow: 0 0 15px #00e0ff;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    /* Generate Button with glow effect */
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #00e0ff 0%, #00ffa3 100%);
+      color: #000;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 0 10px #00ffa3;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #00ffa3 0%, #00e0ff 100%);
+      box-shadow: 0 0 15px #00ffa3;
+    }
+
+    /* Labels and Textareas */
+    label {
+      font-weight: 700;
+      margin-top: 20px;
+      display: block;
+      color: #00ffa3;
+      text-shadow: 0 0 3px #00ffa3;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #00ffa3;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: #000;
+      color: #00e0ff;
+      resize: none;
+      box-shadow: inset 0 0 5px #00ffa3;
+    }
+
+    /* Explanation Section */
+    #seed-explanation {
+      margin-top: 20px;
+      padding: 20px;
+      background: #0f0f0f;
+      border: 2px solid #00ffa3;
+      box-shadow: 0 0 15px #00ffa3;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+    }
+    #seed-explanation h2 {
+      color: #00ffa3;
+      text-shadow: 0 0 5px #00ffa3;
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+    #seed-explanation p, #seed-explanation li {
+      line-height: 1.5;
+      margin-bottom: 10px;
+      color: #00e0ff;
+    }
+    #seed-explanation ol, #seed-explanation ul {
+      margin-left: 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container, #seed-explanation {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Futuristic Seed Generator</h1>
+
+  <div class="container">
+    <button id="generateBtn">Generate Seed</button>
+    <label for="mnemonic">Mnemonic Phrase:</label>
+    <textarea id="mnemonic" rows="4" readonly placeholder="Your mnemonic will appear here..."></textarea>
+
+    <label for="walletSeed">Derived Wallet Seed (hex):</label>
+    <textarea id="walletSeed" rows="2" readonly placeholder="Your wallet seed will appear here..."></textarea>
+  </div>
+
+  <section id="seed-explanation">
+    <h2>How Your Seed Phrase Is Generated</h2>
+    <p>
+      Your seed phrase is created using state-of-the-art cryptographic techniques to ensure maximum security. Here’s a simplified breakdown:
+    </p>
+    <ol>
+      <li><strong>High-Entropy Random Data:</strong> Secure random data (entropy) is generated—like rolling many high-quality dice.</li>
+      <li><strong>Binary Conversion:</strong> This data is converted into bits (0s and 1s), forming the basis of your seed.</li>
+      <li><strong>Checksum Creation:</strong> A checksum is computed with the SHA3‑512 hash function, detecting any errors or tampering.</li>
+      <li><strong>Word Mapping:</strong> The combined bits are split into segments that map to words from a standardized list (BIP39), creating your human-readable seed phrase.</li>
+    </ol>
+
+    <h2>Why Is It So Secure?</h2>
+    <ul>
+      <li><strong>High Entropy:</strong> The massive randomness makes it nearly impossible to guess your seed phrase.</li>
+      <li><strong>Checksum Verification:</strong> The checksum reveals any corruption or manipulation.</li>
+      <li><strong>Industry Standards:</strong> We follow BIP39 and use SHA3‑512, known for their cryptographic strength.</li>
+      <li><strong>Derived Wallet Seed:</strong> The mnemonic is processed using scrypt, making brute-force attacks extremely difficult.</li>
+    </ul>
+
+    <h2>What This Means for You</h2>
+    <p>
+      In essence, your seed phrase is the master key to your crypto wallet. It’s easy to record or remember, yet extraordinarily difficult for anyone else to crack, achieving a balance of convenience and cutting-edge security.
+    </p>
+  </section>
+
+  <script>
+    document.getElementById("generateBtn").addEventListener("click", function() {
+      fetch("/generate")
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            alert("Error: " + data.error);
+          } else {
+            document.getElementById("mnemonic").value = data.mnemonic;
+            document.getElementById("walletSeed").value = data.wallet_seed;
+          }
+        })
+        .catch(err => {
+          alert("An error occurred: " + err);
+        });
+    });
+  </script>
+</body>
+</html>
